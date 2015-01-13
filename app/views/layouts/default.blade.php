@@ -18,22 +18,11 @@
 	
 		@include('layouts.menu')
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 		<div id="main">	
-
+		
+		
+			@include('layouts.box')
+			
 			@yield('content')		
 		
 		</div>

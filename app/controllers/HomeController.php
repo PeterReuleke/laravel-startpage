@@ -2,11 +2,13 @@
 
 class HomeController extends BaseController {
 
-	public function index()
-	{
-		$menu_items = Menu::get();
-	
-		return View::make('layouts.default')->with('menu_items', $menu_items);
+	public function index($menu_id = 1)
+	{	
+		return View::make('layouts.default', array(
+			'menu_items' => Menu::all(),
+			'box_items' => Menu::find($menu_id)->box
+		));
 	}
 
 }
+
