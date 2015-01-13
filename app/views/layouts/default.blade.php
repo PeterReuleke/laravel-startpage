@@ -11,7 +11,6 @@
 		<title>Startpage on OpenShift</title>
 		
 		{{ HTML::style('assets/css/style.css') }}
-		{{ HTML::style('assets/css/box.css') }}	
 		
 	</head>
 	<body>
