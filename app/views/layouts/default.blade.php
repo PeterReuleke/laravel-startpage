@@ -6,8 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="my personal startpage">
 		<meta name="author" content="Peter Reuleke">
-		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-	
+		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">	
 		<title>Startpage on OpenShift</title>
 		
 		{{ HTML::style('assets/css/style.css') }}
@@ -17,13 +16,10 @@
 	
 		@include('layouts.menu')
 	
-		<div id="main">	
+		<div id="content">	
 		
-		
-			@include('layouts.box')
+			@include('box.box')			
 			
-			@yield('content')		
-		
 		</div>
 		
 		{{ HTML::script('/assets/js/MooTools-Core-1.5.1.js') }}

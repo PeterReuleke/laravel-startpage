@@ -1,6 +1,52 @@
 window.addEvent('domready', function() {
 	var z = 10;
 
+
+	// Menu
+	
+	$$('#menu #navi li').each(function(el) {
+		el.addEvents({
+			'click': function() {						
+				$$('#menu #navi li').each(function(ele){
+					if (ele == el) {
+						ele.set('class', 'active');
+					} else {
+						ele.set('class', 'inactive');
+					}
+				});
+				
+				if (el.get('id') == 'admin_navi') {
+					var AjaxReq = new Request({
+						url : 'Admin',
+						method: 'get',
+						onSuccess: function(response) {
+							$('content').set('html', response);
+						}
+					});						
+				} else {
+					var id = el.get('id').split('navi');
+					id = id[1];
+	
+					var AjaxReq = new Request({
+						url : 'Menu/' + id,
+						method: 'get',
+						onSuccess: function(response) {					
+							$('content').set('html', response);
+							start_drag();
+							start_rss();
+						}
+					});					
+				}
+				
+				AjaxReq.send();
+			}			
+		});
+	});
+	
+
+
+
+
 	//	Drag&Drop
 	
 	var start_drag = function () {	
@@ -62,5 +108,42 @@ window.addEvent('domready', function() {
 		});
 	}
 	
+	// Rss
+	
+	var start_rss = function () {
+		$$('#feed_menu span').each(function(el) {
+		
+			el.addEvent('click', function() {				
+				$$('#feed_menu span').each(function(ele){
+					if (ele == el) {
+						ele.set('class', 'active');
+					} else {
+						if (ele.getOffsetParent().get('id') == el.getOffsetParent().get('id')) {
+							ele.set('class', 'inactive');
+						}						
+					}
+				});
+			
+				
+				var long_id = el.get('id').split(':'),
+					help_id = long_id[1].split('_'),
+					id = help_id[0],
+					feed_id = help_id[1];		
+		
+				var AjaxReq = new Request({
+					url : 'Rss/' + feed_id,
+					method: 'get',
+					onSuccess: function(response) {							
+						$(id).getElement('#feed_news').set('html', response);				
+					}
+				});	
+	
+				AjaxReq.send();
+			});
+		});	
+	}
+	
+	
 	start_drag();	
+	start_rss();
 });

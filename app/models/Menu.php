@@ -2,7 +2,7 @@
 
 class Menu extends Eloquent  {
 
-	public $timestamps = false;
+	public $timestamps = true;
 	protected $table = 'Menu';
 
 	public function box() 

@@ -2,7 +2,7 @@
 
 class Links extends Eloquent {
 
-	public $timestamps = false;
+	public $timestamps = true;
 	protected $table = 'Links';
 
     public function box()
