@@ -6,7 +6,7 @@
 			@include('box.links')
 		@elseif ($item->content_id == 2)
 			<?php $class = "rss_box" ?>
-			@include('box.rss')
+			@include('box.allRss')
 		@else
 			<p class="error"><b>Fehler:</b> keine Inhalte vorhanden</p>
 		@endif

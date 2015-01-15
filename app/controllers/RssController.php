@@ -4,6 +4,8 @@ class RssController extends BaseController {
 
 	public function index($id) 
 	{		
-		return Rss::find($id)->getRss();;
+		return View::make('box.singleRss', array(
+			'rss_items' => Rss::find($id)->getRss()
+		));
 	}
 }
