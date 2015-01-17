@@ -4,18 +4,15 @@ class Box extends Eloquent {
 
 	public $timestamps = true;
 	protected $table = 'Box';
-	
-	public $content = array();
-	//public $content_id;
-	
+		
     protected $fillable = [
+		'name',
+		'color',
+		'menu_id',
+		'content_id',
         'pos_top',
         'pos_left'
     ];
-	
-	public function __construct() {
-		//$this->content = $this->content_id;
-	}
 
     public function menu()
     {

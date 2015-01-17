@@ -27,4 +27,3 @@
 		{{ HTML::script('/assets/js/function.js') }}
 	</body>
 </html>
-

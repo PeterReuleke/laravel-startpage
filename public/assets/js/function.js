@@ -1,7 +1,12 @@
 window.addEvent('domready', function() {
 	var z = 10;
 
-
+	/*
+	 * used More funtions:
+	 * - Drag.Move
+	 * - Slider
+	 */
+	
 	// Menu
 	
 	$$('#menu #navi li').each(function(el) {
@@ -21,6 +26,7 @@ window.addEvent('domready', function() {
 						method: 'get',
 						onSuccess: function(response) {
 							$('content').set('html', response);
+							start_admin();
 						}
 					});						
 				} else {
@@ -43,10 +49,6 @@ window.addEvent('domready', function() {
 		});
 	});
 	
-
-
-
-
 	//	Drag&Drop
 	
 	var start_drag = function () {	
@@ -122,8 +124,7 @@ window.addEvent('domready', function() {
 							ele.set('class', 'inactive');
 						}						
 					}
-				});
-			
+				});	
 				
 				var long_id = el.get('id').split(':'),
 					help_id = long_id[1].split('_'),
@@ -143,6 +144,131 @@ window.addEvent('domready', function() {
 		});	
 	}
 	
+	/** 
+	 * Admin-EventHandler
+	 * Restful-url: {verb}_{resource}:{id}/{action}
+	 * example: get_Box:2/create => GET /Box/2/create
+	 *			post_Box:3	 	 => POST /Menu/3
+	 */
+	var Admin_EventHandler = new Class ({
+	    initialize: function (ele) {
+	    	var long_id = ele.get('id').split(':');
+	    	
+	    	if (long_id.length > 1) {
+	    		var help1_id = long_id[0].split('_');
+				var help2_id = long_id[1].split('/');
+	    		
+				this.verb = help1_id[0];				
+	    		this.resource = help1_id[1];
+	        	this.id = help2_id[0];
+				
+				if (help2_id.length > 1) {
+					this.action = help2_id[1];
+				} else {
+					this.action = '';
+				}
+	    	}	    	
+	    	else
+	    	{
+				alert('Fehler: long_id.length <= 0');
+	    	}
+	    },
+	    do_Request: function () {	
+			var data = '';  
+			
+			if (this.action != '') {
+				$$('#admin_main .input').each(function(el) {
+					value = string_to_url(el.get('value'));					
+				
+					data+= '&' + el.get('id') + '=' + value;		
+				});
+			}
+
+			var url = 'Admin/' + this.resource + '/' + this.id + '/' + this.action;
+
+			if (url.endsWith('/')) {
+				url = url.slice(0, -1);
+			}
+			
+			var AjaxReq = new Request({
+				url : url,
+				method: this.verb,
+				onSuccess: function(response) {			
+					$('admin_main').set('html', response);				
+
+					start_admin();
+
+					if ($defined($('set_color'))) {
+						farb_tool();			
+					}	
+				}
+			});	
+
+			AjaxReq.send(data);
+	    }
+	});
+	
+	var start_admin = function () {
+		$$('.action_span').removeEvents('click');
+		
+		$$('.action_span').each(function (el) {
+			el.addEvents({
+				'click': function() {
+					$$('#admin_menu span').each(function(ele){
+						if (ele == el) {
+							ele.set('class', 'active');
+						} else {
+							ele.set('class', 'inactive');
+						}
+					});
+
+					var admin_event = new Admin_EventHandler(el);
+
+					admin_event.do_Request();	
+				}
+			});
+		});
+	}
+	
+	// Farb Tool
+	
+	var farb_tool = function () {
+		var el = $('color'),
+			color;	
+		
+		if (el.get('value') != '') {
+			color = el.get('value').hexToRgb(true);
+		} else {
+			color = [0,0,0];
+		}	
+		
+		var updateColor = function(){						
+			el.set('value', color.rgbToHex().substr(1,6));
+			
+			$('set_color').setStyle('color', color.rgbToHex());
+		};
+		
+		$$('div.slider.advanced').each(function(el, i){			
+			var slider = new Slider(el, el.getElement('.knob'), {
+				steps: 255, 
+				initialStep: color[i],
+				wheel: true, 
+				onChange: function(){				
+					color[i] = this.step;
+					updateColor();
+				}
+			}).set(color[i]);
+		});
+	}
+	
+	// string_to_url
+	
+	var string_to_url = function (str) {
+		return str.replace(/&/gi, '%26')
+				  .replace(/#/gi, '%23')
+				  .replace(/\//gi, '%2F')
+				  .replace(/\?/gi, '%3F');
+	}
 	
 	start_drag();	
 	start_rss();

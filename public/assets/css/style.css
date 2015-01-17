@@ -357,6 +357,14 @@ table td #Name {
 	margin-left: 1em;
 }
 
+#admin #admin_menu .active {
+	color: #fff;
+}
+
+#admin #admin_menu .inactive {
+	color: #000;
+}
+
 #admin #admin_main {
 	position: absolute;
 	left: 300px;
@@ -366,7 +374,7 @@ table td #Name {
 	padding: 1em 3em;
 }
 
-#admin #alert_box {
+#admin #alert_Box {
 	position: absolute;
 	top: 60px;
 	left: 80px;
@@ -381,11 +389,11 @@ table td #Name {
 	-moz-box-shadow: 0 0 10px rgba(14, 32, 59, .5);	
 }
 
-#admin #alert_box p {
+#admin #alert_Box p {
 	font-weight: bold;
 }
 
-#admin #alert_box span {
+#admin #alert_Box span {
 	margin-left: 1em;
 }
 
@@ -428,7 +436,7 @@ table td #Name {
 /*	Sonstiges   
 	-------------------------------------------------------------------------	*/
 
-#farb_tool {
+#color_Box {
 	position: absolute;
 	top: 15px;
 	left: 650px;

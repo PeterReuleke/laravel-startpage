@@ -1,12 +1,7 @@
 <?php
 
 class BoxController extends BaseController {
-	
-	public function index() 
-	{
 
-	}
-	
 	public function update($id) 
 	{
 		$box = Box::find($id);
