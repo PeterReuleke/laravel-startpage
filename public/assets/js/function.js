@@ -103,9 +103,15 @@ window.addEvent('domready', function() {
 				}
 			});
 			
-			drag.addEvent('click', function() {
-				z++;
-				drag.setStyle('z-index', z);			
+			drag.addEvents({
+				'click': function() {
+					z++;
+					drag.setStyle('z-index', z);	
+				}, 
+				'touchstart': function() {
+					z++;
+					drag.setStyle('z-index', z);	
+				}
 			});
 		});
 	}

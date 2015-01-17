@@ -18,12 +18,13 @@
 	
 		<div id="content">	
 		
-			@include('box.box')			
+		@include('box.box')			
 			
 		</div>
 		
 		{{ HTML::script('/assets/js/MooTools-Core-1.5.1.js') }}
 		{{ HTML::script('/assets/js/MooTools-More-1.5.1.js') }}
+		{{ HTML::script('/assets/js/refactorDrag.js') }}
 		{{ HTML::script('/assets/js/function.js') }}
 	</body>
 </html>
