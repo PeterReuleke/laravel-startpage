@@ -26,4 +26,7 @@
 	<p>keine Feeds vorhanden</p>
 @endif
 
+@if (!isset($box_id))
+	<?php $box_id = Rss::find($rss_id)->box->id ?>
+@endif
 <br /><span id="get_Rss:{{ $box_id }}/create" class="action_span">Neuen Rss-Feed hinzufügen</span><br />

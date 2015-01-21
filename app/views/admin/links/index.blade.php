@@ -26,4 +26,7 @@
 	<p>keine Links vorhanden</p>
 @endif
 
+@if (!isset($box_id))
+	<?php $box_id = Links::find($link_id)->box->id ?>
+@endif
 <br /><span id="get_Link:{{ $box_id }}/create" class="action_span">Neuen Link hinzufügen</span><br />

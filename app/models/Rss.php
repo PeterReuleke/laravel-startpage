@@ -5,6 +5,12 @@ class Rss extends Eloquent {
 	public $timestamps = true;
 	protected $table = 'Rss';
 	public $items = array();
+	
+    protected $fillable = [
+		'name',
+		'feed',
+		'box_id'
+    ];
 
     public function box()
     {
@@ -26,7 +32,11 @@ class Rss extends Eloquent {
 			
 					if ($i > 0) {
 						$title_array = explode(":", $title);
-					
+						
+						if (@$title_array[1] === null) {
+							$title_array[1] = "";
+						}
+
 						if (mb_detect_encoding($contents) == false) {
 							$title0 = utf8_encode($title_array[0]);
 							$title1 = utf8_encode($title_array[1]);
@@ -34,7 +44,7 @@ class Rss extends Eloquent {
 							$title0 = $title_array[0];
 							$title1 = $title_array[1];
 						}	
-
+						
 						$this->items[] = array(
 							'href' => $link,
 							'title0' => $title0,

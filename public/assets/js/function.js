@@ -182,13 +182,11 @@ window.addEvent('domready', function() {
 	    do_Request: function () {	
 			var data = '';  
 			
-			if (this.action != '') {
-				$$('#admin_main .input').each(function(el) {
-					value = string_to_url(el.get('value'));					
-				
-					data+= '&' + el.get('id') + '=' + value;		
-				});
-			}
+			$$('#admin_main .input').each(function(el) {
+				value = string_to_url(el.get('value'));					
+			
+				data+= '&' + el.get('id') + '=' + value;		
+			});
 
 			var url = 'Admin/' + this.resource + '/' + this.id + '/' + this.action;
 
