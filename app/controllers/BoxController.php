@@ -4,11 +4,19 @@ class BoxController extends BaseController {
 
 	public function update($id) 
 	{
-		$box = Box::find($id);
+		$aOrder = explode(",", Input::get('order'));
 		
-		$box->pos_top = Input::get('top');
-		$box->pos_left = Input::get('left');
-		$box->save();
+		$i = 0;
+		
+		foreach($aOrder as $o) {
+			$box_id = explode("box", $o)[1];
+			
+			$box = Box::find($box_id);
+			$box->order = $i;
+			$box->save();
+			
+			$i++;
+		}
 	}
 
 }

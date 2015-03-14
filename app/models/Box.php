@@ -10,6 +10,7 @@ class Box extends Eloquent {
 		'color',
 		'menu_id',
 		'content_id',
+		'order',
         'pos_top',
         'pos_left'
     ];

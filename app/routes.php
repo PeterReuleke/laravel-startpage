@@ -9,8 +9,8 @@ Route::get('/', [
 Route::get('Menu/{id}', [
 	'uses' => 'MenuController@index' 
 ]);
-	
-// changing the position of a box
+
+// changing the order of a box
 Route::patch('Box/{id}', [
 	'uses' => 'BoxController@update' 
 ]);

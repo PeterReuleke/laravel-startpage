@@ -6,9 +6,8 @@ class HomeController extends BaseController {
 	{	
 		return View::make('layouts.default', array(
 			'menu_items' => Menu::all(),
-			'box_items' => Menu::find($menu_id)->box
+			'box_items' => Box::where('menu_id', '=', $menu_id)->orderBy('order', 'asc')->get()
 		));
 	}
 
 }
-

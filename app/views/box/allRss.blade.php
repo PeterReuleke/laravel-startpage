@@ -1,6 +1,5 @@
-<div id="box{{ $item->id }}" class="box {{ $class }}" style="background-color: #{{ $item->color }}; top: {{ $item->pos_top }}; left: {{ $item->pos_left }};">
-	<div class="box_head">{{ $item->name }}</div>
-	<div class="box_body">
+<div id="box{{ $item->id }}" class="box {{ $class }}" style="background-color: #{{ $item->color }};">
+	<h3>{{ $item->name }}</h3>
 
 	@if ($item->rss()->count())	
 		<?php $i = 1 ?>	
@@ -26,5 +25,4 @@
 		<p>keine Feeds vorhanden</p>
 	@endif
 	
-	</div>
 </div>

@@ -2,7 +2,7 @@
  * makes drag&drop work on mobil devices
  * source: http://stackoverflow.com/questions/7588576/drag-with-mootools-on-mobile
  */
-Class.refactor(Drag,
+Class.refactor(Sortables,
     {
         attach: function(){
             this.handles.addEvent('touchstart', this.bound.start);

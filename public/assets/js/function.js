@@ -4,15 +4,16 @@ window.addEvent('domready', function() {
 	/*
 	 * used More funtions:
 	 * - Drag.Move
+	 * - Sortables
 	 * - Slider
 	 */
 	
 	// Menu
 	
-	$$('#menu #navi li').each(function(el) {
+	$$('nav .navbar-nav li').each(function(el) {
 		el.addEvents({
 			'click': function() {						
-				$$('#menu #navi li').each(function(ele){
+				$$('nav .navbar-nav li').each(function(ele){
 					if (ele == el) {
 						ele.set('class', 'active');
 					} else {
@@ -38,7 +39,8 @@ window.addEvent('domready', function() {
 						method: 'get',
 						onSuccess: function(response) {					
 							$('content').set('html', response);
-							start_drag();
+							//start_drag();
+							start_sortables();
 							start_rss();
 						}
 					});					
@@ -50,12 +52,12 @@ window.addEvent('domready', function() {
 	});
 	
 	//	Drag&Drop
-	
+/*	
 	var start_drag = function () {	
 		$$('.box').each(function(drag) {	
 			new Drag.Move(drag, {
 				droppables: drag,
-				handle: drag.getChildren('.box_head'),
+				handle: drag.getChildren('h2'),
 				onStart: function(el) {
 					z++;
 					el.setStyle('z-index', z);
@@ -115,7 +117,7 @@ window.addEvent('domready', function() {
 			});
 		});
 	}
-	
+*/	
 	// Rss
 	
 	var start_rss = function () {
@@ -274,6 +276,37 @@ window.addEvent('domready', function() {
 				  .replace(/\?/gi, '%3F');
 	}
 	
-	start_drag();	
+	// Sortables
+
+	var start_sortables = function () {			
+		var sort = new Sortables($$('.row'), {
+			constrain: true,
+			opacity: 0.5,
+			clone: true,
+			revert: true,
+			onComplete: function (el) {				
+				var id = el.getProperty('id').split('box');
+				id = id[1];
+				
+				var data = 'order=' + this.serialize();
+
+				var AjaxReq = new Request({
+					url : 'Box/' + id,
+					method: 'patch',
+					urlEncoded: true,
+					onSuccess: function(response) {						
+						//alert(response);
+					}
+				});	
+				
+				AjaxReq.send(data);
+			}
+		});		
+
+	}
+
+	
+	//start_drag();	
+	start_sortables();
 	start_rss();
 });
